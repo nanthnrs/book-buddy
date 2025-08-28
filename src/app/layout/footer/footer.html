@@ -1,0 +1,18 @@
+<footer
+  class="w-full fixed bottom-0 grid grid-cols-2 divide-x-2 divide-gray-200 md:hidden h-(--footer-height) border-t border-t-gray-200"
+>
+  @for (item of items; track $index) {
+  <a
+    class="flex justify-center items-center"
+    [routerLink]="item.path"
+    routerLinkActive="link-active"
+    #rla="routerLinkActive"
+  >
+    @if (rla.isActive) {
+    <i [class]="item.activeIcon"></i>
+    } @else {
+    <i [class]="item.icon"></i>
+    }
+  </a>
+  }
+</footer>

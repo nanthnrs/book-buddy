@@ -1,0 +1,15 @@
+<nav
+  class="bg-white fixed top-(--header-height) hidden md:block md:w-(--sidebar-width) h-full border-r border-r-gray-200"
+>
+  @for (item of items; track $index) {
+  <div class="px-2 py-1">
+    <a
+      class="flex gap-x-2 p-2 rounded-xl"
+      [routerLink]="item.path"
+      routerLinkActive="link-active"
+    >
+      <i [class]="item.icon"></i> {{ item.label }}
+    </a>
+  </div>
+  }
+</nav>

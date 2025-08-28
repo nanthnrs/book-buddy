@@ -1,2 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
+@import "bootstrap-icons/font/bootstrap-icons";
+
+@theme {
+  --header-height: 60px;
+  --footer-height: 60px;
+  --sidebar-width: 300px;
+}
+
+.link-active {
+  @apply bg-blue-100 text-blue-500;
+}
