@@ -6,6 +6,8 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { bookFeature } from './state/book/book.reducer';
+import { BookEffects } from './state/book/book.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,8 +15,8 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideHttpClient(),
-    provideStore(),
-    provideEffects(),
+    provideStore(bookFeature.reducer),
+    provideEffects(BookEffects),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
 ]
 };
