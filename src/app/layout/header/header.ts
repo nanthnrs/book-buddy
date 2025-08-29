@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -6,11 +6,4 @@ import { Component, input, output } from '@angular/core';
   templateUrl: './header.html',
   styleUrl: './header.css'
 })
-export class Header {
-  sidebarOpen = input<boolean>(false);
-  toggleMenu = output<void>();
-
-  toggle() {
-    this.toggleMenu.emit();
-  }
-}
+export class Header { }
