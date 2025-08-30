@@ -8,9 +8,9 @@ import { Component, input, output } from '@angular/core';
 })
 export class FavoriteButton {
   favorite = input.required<boolean>();
-  click = output();
+  onClick = output();
 
-  onClick() {
-    this.click.emit();
+  click() {
+    this.onClick.emit();
   }
 }

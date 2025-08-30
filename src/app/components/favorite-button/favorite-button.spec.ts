@@ -41,11 +41,11 @@ describe('FavoriteButton', () => {
   });
 
   it('should emit click event when button is clicked', () => {
-    spyOn(component.click, 'emit');
+    spyOn(component.onClick, 'emit');
 
     const button = fixture.nativeElement.querySelector('button') as HTMLButtonElement;
     button.click();
 
-    expect(component.click.emit).toHaveBeenCalled();
+    expect(component.onClick.emit).toHaveBeenCalled();
   });
 });
