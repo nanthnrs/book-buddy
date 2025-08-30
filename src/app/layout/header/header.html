@@ -1,5 +1,8 @@
 <header
-  class="fixed h-(--header-height) flex w-full items-center gap-x-3 border-b border-b-gray-200 p-3"
+  class="fixed h-(--header-height) flex w-full justify-between items-center gap-x-3 border-b border-b-gray-200 p-3"
 >
   <h1>Book Buddy</h1>
+  <button id="btn-refresh" class="px-2 cursor-pointer" [disabled]="loading()" (click)="refreshBooks()">
+    <i class="bi bi-arrow-clockwise"></i>
+  </button>
 </header>
