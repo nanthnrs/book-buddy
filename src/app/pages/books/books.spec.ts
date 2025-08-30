@@ -5,7 +5,8 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { bookFeatureKey, initialBookState } from '../../state/book/book.reducer';
-import { selectLoadingBooks } from '../../state/book/book.selectors';
+import { selectFavoriteBooks, selectLoadingBooks } from '../../state/book/book.selectors';
+import { Book } from '../../core/models/book';
 
 
 
@@ -42,6 +43,20 @@ describe('Books', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should render book list component', () => {
+    store.overrideSelector(selectFavoriteBooks, [
+      {
+        name: 'Book 1',
+        isFavorite: true,
+        url: 'https://anapioficeandfire.com/api/books/1'
+      }] as Book[]);
+    store.refreshState();
+    fixture.detectChanges();
+
+    const bookListComponent = nativeElement.querySelector('app-book-list');
+    expect(bookListComponent).toBeTruthy();
+  });
+
   it('should display loading when books are loading', () => {
     store.overrideSelector(selectLoadingBooks, true);
     store.refreshState();
@@ -51,6 +66,4 @@ describe('Books', () => {
     expect(loadingElement).toBeTruthy();
     expect(loadingElement?.textContent).toContain('Loading...');
   });
-
-
 });

@@ -1,0 +1,15 @@
+@let item = book();
+
+<li class="flex justify-between items-center p-2">
+  <a [routerLink]="['', 'books', id()]" class="grow font-medium text-lg">
+    {{ item.name }}
+    <p class="text-sm text-gray-500">ISBN: {{ item.isbn }}</p>
+  </a>
+  <button class="cursor-pointer px-3" (click)="toggleFavorite()">
+    @if (item.isFavorite) {
+    <i class="bi bi-heart-fill text-blue-500"></i>
+    } @else {
+    <i class="bi bi-heart"></i>
+    }
+  </button>
+</li>

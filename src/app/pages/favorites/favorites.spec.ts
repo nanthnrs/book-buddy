@@ -40,7 +40,12 @@ describe('Favorites', () => {
   });
 
   it('should render book list component', () => {
-    store.overrideSelector(selectFavoriteBooks, [{ name: 'Book 1', isFavorite: true }] as Book[]);
+    store.overrideSelector(selectFavoriteBooks, [
+      {
+        name: 'Book 1',
+        isFavorite: true,
+        url: 'https://anapioficeandfire.com/api/books/1'
+      }] as Book[]);
     store.refreshState();
     fixture.detectChanges();
 
