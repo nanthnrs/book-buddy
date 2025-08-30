@@ -10,7 +10,6 @@ describe('Book Selectors', () => {
     ] as Book[],
     loading: false,
     selected: { isbn: '123', name: 'Book 1' } as Book,
-    favorites: ['123']
   }
 
   it('should select the feature state', () => {

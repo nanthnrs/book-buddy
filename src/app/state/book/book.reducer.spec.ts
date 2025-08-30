@@ -1,3 +1,4 @@
+import { Book } from '../../core/models/book';
 import { BookActions } from './book.actions';
 import { bookReducer, initialBookState } from './book.reducer';
 
@@ -40,6 +41,29 @@ describe('Book Reducer', () => {
         ...initialBookState,
         books: booksMock,
         loading: false
+      });
+    });
+  });
+
+  describe('setFavorite action', () => {
+    it('should set the favorite status of a book', () => {
+      const initialState = {
+        ...initialBookState,
+        books: [
+          { isbn: '123', name: 'Book 1', isFavorite: false },
+          { isbn: '456', name: 'Book 2', isFavorite: true }
+        ] as Book[]
+      };
+
+      const action = BookActions.setFavorite({ isbn: '123', isFavorite: true });
+      const result = bookReducer(initialState, action);
+
+      expect(result).toEqual({
+        ...initialState,
+        books: [
+          { isbn: '123', name: 'Book 1', isFavorite: true },
+          { isbn: '456', name: 'Book 2', isFavorite: true }
+        ] as Book[]
       });
     });
   });

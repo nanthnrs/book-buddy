@@ -8,14 +8,12 @@ export interface BookState {
   books: Book[];
   loading: boolean;
   selected: Book | null;
-  favorites: string[];
 }
 
 export const initialBookState: BookState = {
   books: [],
   loading: false,
   selected: null,
-  favorites: [],
 };
 
 export const bookReducer = createReducer(
@@ -29,6 +27,13 @@ export const bookReducer = createReducer(
     books: data,
     loading: false,
   })),
+  on(BookActions.setFavorite, (state, { isbn, isFavorite }) => ({
+    ...state,
+    books: state.books.map(book => ({
+      ...book,
+      isFavorite: book.isbn === isbn ? isFavorite : book.isFavorite
+    }))
+  }))
 );
 
 export const bookFeature = createFeature({

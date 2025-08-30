@@ -5,6 +5,7 @@ export const BookActions = createActionGroup({
   source: 'Book',
   events: {
     'Load Books': emptyProps(),
-    'Set Books': props<{ data: Book[] }>()
+    'Set Books': props<{ data: Book[] }>(),
+    'Set Favorite': props<{ isbn: string, isFavorite: boolean }>(),
   }
 });

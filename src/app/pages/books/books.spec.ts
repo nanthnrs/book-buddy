@@ -7,6 +7,7 @@ import { Book } from '../../core/models/book';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { bookFeatureKey, initialBookState } from '../../state/book/book.reducer';
 import { selectAllBooks, selectLoadingBooks } from '../../state/book/book.selectors';
+import { BookActions } from '../../state/book/book.actions';
 
 const booksMock = [
   { name: 'Book 1', isFavorite: false },
@@ -78,14 +79,20 @@ describe('Books', () => {
 
   describe('toggleFavorite', () => {
     it('should toggle the isFavorite property of a book', fakeAsync(() => {
-      const book = { name: 'Book 1', isFavorite: false } as Book;
-      expect(book.isFavorite).toBeFalse();
+      const book1 = { isbn: '123', isFavorite: undefined } as Book;
+      const book2 = { isbn: '456', isFavorite: false } as Book;
+      const book3 = { isbn: '789', isFavorite: true } as Book;
 
-      component.toggleFavorite(book);
-      expect(book.isFavorite).toBeTrue();
+      const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
 
-      component.toggleFavorite(book);
-      expect(book.isFavorite).toBeFalse();
+      component.toggleFavorite(book1);
+      expect(dispatchSpy).toHaveBeenCalledWith(BookActions.setFavorite({ isbn: book1.isbn, isFavorite: true }));
+
+      component.toggleFavorite(book2);
+      expect(dispatchSpy).toHaveBeenCalledWith(BookActions.setFavorite({ isbn: book2.isbn, isFavorite: true }));
+
+      component.toggleFavorite(book3);
+      expect(dispatchSpy).toHaveBeenCalledWith(BookActions.setFavorite({ isbn: book3.isbn, isFavorite: false }));
     }));
   });
 });
