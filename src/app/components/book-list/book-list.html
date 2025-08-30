@@ -1,0 +1,17 @@
+<ul id="book-list" class="divide-y divide-gray-200">
+  @for (item of books(); track item.isbn) {
+  <li class="flex justify-between items-center p-2">
+    <a [routerLink]="['', 'books', item.isbn]" class="grow font-medium text-lg">
+      {{ item.name }}
+      <p class="text-sm text-gray-500">ISBN: {{ item.isbn }}</p>
+    </a>
+    <button class="cursor-pointer px-3" (click)="toggleFavorite(item)">
+      @if (item.isFavorite) {
+      <i class="bi bi-heart-fill text-blue-500"></i>
+      } @else {
+      <i class="bi bi-heart"></i>
+      }
+    </button>
+  </li>
+  }
+</ul>

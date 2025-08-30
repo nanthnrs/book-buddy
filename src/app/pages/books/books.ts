@@ -1,13 +1,13 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { Book } from '../../core/models/book';
 import { Store } from '@ngrx/store';
 import { selectAllBooks, selectLoadingBooks } from '../../state/book/book.selectors';
 import { BookActions } from '../../state/book/book.actions';
+import { BookList } from "../../components/book-list/book-list";
 
 @Component({
   selector: 'app-books',
-  imports: [RouterLink],
+  imports: [BookList],
   templateUrl: './books.html',
   styleUrl: './books.css'
 })
