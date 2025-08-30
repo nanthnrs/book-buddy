@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
 import { catchError, exhaustMap, map } from 'rxjs/operators';
-import { EMPTY } from 'rxjs';
+import { combineLatest, EMPTY, timer } from 'rxjs';
 import { BookActions } from './book.actions';
 import { BooksService } from '../../services/books/books.service';
 
@@ -14,9 +14,9 @@ export class BookEffects {
   loadBooks$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(BookActions.loadBooks),
-      exhaustMap(() => this.booksService.getBooks()
+      exhaustMap(() => combineLatest([this.booksService.getBooks(), timer(2000)])
         .pipe(
-          map(books => BookActions.setBooks({ data: books })),
+          map(([books]) => BookActions.setBooks({ data: books })),
           catchError((error) => {
             console.error('[loadBooks$]', error);
             return EMPTY

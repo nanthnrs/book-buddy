@@ -3,7 +3,7 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
-import { provideStore } from '@ngrx/store';
+import { provideState, provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { bookFeature } from './state/book/book.reducer';
@@ -15,7 +15,8 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideHttpClient(),
-    provideStore(bookFeature.reducer),
+    provideStore(),
+    provideState(bookFeature),
     provideEffects(BookEffects),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
 ]

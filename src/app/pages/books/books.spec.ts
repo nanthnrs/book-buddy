@@ -2,10 +2,11 @@ import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 
 import { Books } from './books';
 import { provideHttpClient } from '@angular/common/http';
-import { BooksService } from '../../services/books/books.service';
-import { of } from 'rxjs';
 import { provideRouter } from '@angular/router';
 import { Book } from '../../core/models/book';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { bookFeatureKey, initialBookState } from '../../state/book/book.reducer';
+import { selectAllBooks, selectLoadingBooks } from '../../state/book/book.selectors';
 
 const booksMock = [
   { name: 'Book 1', isFavorite: false },
@@ -17,18 +18,25 @@ describe('Books', () => {
   let component: Books;
   let fixture: ComponentFixture<Books>;
   let nativeElement: HTMLElement;
-  let booksService: BooksService
+  let store: MockStore;
+
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [Books],
-      providers: [provideHttpClient(), provideRouter([])]
+      providers: [
+        provideHttpClient(),
+        provideRouter([]),
+        provideMockStore({
+          initialState: {
+            [bookFeatureKey]: initialBookState,
+          },
+        }),
+      ]
     })
       .compileComponents();
 
-    booksService = TestBed.inject(BooksService);
-
-    spyOn(booksService, 'getBooks').and.returnValue(of(booksMock));
+    store = TestBed.inject(MockStore);
 
     fixture = TestBed.createComponent(Books);
     nativeElement = fixture.nativeElement;
@@ -38,19 +46,29 @@ describe('Books', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-    expect(booksService.getBooks).toHaveBeenCalledOnceWith();
-    expect(component.books()).toEqual(booksMock);
+  });
+
+  it('should display loading when books are loading', () => {
+    store.overrideSelector(selectLoadingBooks, true);
+    store.refreshState();
+    fixture.detectChanges();
+
+    const loadingElement = nativeElement.querySelector('#loading-books');
+    expect(loadingElement).toBeTruthy();
+    expect(loadingElement?.textContent).toContain('Loading...');
   });
 
   it('should display list of books', () => {
+    store.overrideSelector(selectAllBooks, booksMock);
+    store.refreshState();
+    fixture.detectChanges();
+
     const listItems = nativeElement.querySelectorAll('#book-list li');
     expect(listItems.length).toBe(3);
     expect(listItems[0].textContent).toContain('Book 1');
     expect(listItems[1].textContent).toContain('Book 2');
     expect(listItems[2].textContent).toContain('Book 3');
-  });
 
-  it('should display favorite icon correctly', () => {
     const favoriteIcons = nativeElement.querySelectorAll('#book-list li i.bi');
     expect(favoriteIcons.length).toBe(3);
     expect(favoriteIcons[0].className).toContain('bi bi-heart');

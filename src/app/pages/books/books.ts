@@ -1,7 +1,8 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
-import { BooksService } from '../../services/books/books.service';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Book } from '../../core/models/book';
+import { Store } from '@ngrx/store';
+import { selectAllBooks, selectLoadingBooks } from '../../state/book/book.selectors';
 
 @Component({
   selector: 'app-books',
@@ -9,20 +10,11 @@ import { Book } from '../../core/models/book';
   templateUrl: './books.html',
   styleUrl: './books.css'
 })
-export class Books implements OnInit {
-  private booksService = inject(BooksService);
+export class Books {
+  private store = inject(Store);
 
-  readonly books = signal<Book[]>([]);
-
-  ngOnInit(): void {
-    this.getBooks();
-  }
-
-  getBooks() {
-    this.booksService.getBooks().subscribe(books => {
-      this.books.set(books);
-    });
-  }
+  readonly books = this.store.selectSignal(selectAllBooks);
+  readonly loading = this.store.selectSignal(selectLoadingBooks);
 
   toggleFavorite(book: Book) {
     book.isFavorite = !book.isFavorite;
