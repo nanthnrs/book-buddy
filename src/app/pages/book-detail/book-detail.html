@@ -1,0 +1,55 @@
+@let item = book(); @if (item) {
+<div class="flex justify-between space-y-4">
+  <h1 class="font-bold">{{ item.name }}</h1>
+  <app-favorite-button
+    [favorite]="isFavorite()"
+    (onClick)="onFavoriteClick()"
+  ></app-favorite-button>
+</div>
+
+<table class="border-collapse border border-red-200 w-full">
+  <tr>
+    <th class="border border-gray-200 p-3 text-left">Name</th>
+    <td class="border border-gray-200 p-3 text-left">{{ item.name }}</td>
+  </tr>
+  <tr>
+    <th class="border border-gray-200 p-3 text-left">ISBN</th>
+    <td class="border border-gray-200 p-3 text-left">{{ item.isbn }}</td>
+  </tr>
+  <tr>
+    <th class="border border-gray-200 p-3 text-left">Authors</th>
+    <td class="border border-gray-200 p-3 text-left">
+      <ul>
+        @for (author of item.authors; track author) {
+        <li>{{ author }}</li>
+        }
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <th class="border border-gray-200 p-3 text-left">Publisher</th>
+    <td class="border border-gray-200 p-3 text-left">{{ item.publisher }}</td>
+  </tr>
+  <tr>
+    <th class="border border-gray-200 p-3 text-left">Released</th>
+    <td class="border border-gray-200 p-3 text-left">{{ item.released }}</td>
+  </tr>
+  <tr>
+    <th class="border border-gray-200 p-3 text-left">Number of pages</th>
+    <td class="border border-gray-200 p-3 text-left">
+      {{ item.numberOfPages }}
+    </td>
+  </tr>
+  <tr>
+    <th class="border border-gray-200 p-3 text-left">Media type</th>
+    <td class="border border-gray-200 p-3 text-left">{{ item.mediaType }}</td>
+  </tr>
+  <tr>
+    <th class="border border-gray-200 p-3 text-left">Country</th>
+    <td class="border border-gray-200 p-3 text-left">{{ item.country }}</td>
+  </tr>
+</table>
+
+} @else {
+<p class="text-center">Loading...</p>
+}
