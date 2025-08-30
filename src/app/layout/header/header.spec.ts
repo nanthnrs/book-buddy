@@ -71,9 +71,16 @@ describe('Header', () => {
   });
 
   it('should load books when refresh button is clicked', () => {
+    // Make sure loading is false to enable the button
+    store.overrideSelector(selectLoadingBooks, false);
+    store.refreshState();
+    fixture.detectChanges();
+
     const button = nativeElement.querySelector('#btn-refresh') as HTMLButtonElement;
     spyOn(store, 'dispatch').and.callThrough();
+
     button.click();
+
     expect(store.dispatch).toHaveBeenCalledOnceWith(BookActions.loadBooks());
   });
 });
