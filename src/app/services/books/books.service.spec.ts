@@ -11,7 +11,7 @@ describe('BooksService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [provideHttpClient()]
+      providers: [provideHttpClient()],
     });
     service = TestBed.inject(BooksService);
     httpClient = TestBed.inject(HttpClient);
@@ -22,12 +22,21 @@ describe('BooksService', () => {
   });
 
   it('should fetch books', (done: DoneFn) => {
-    spyOn(httpClient, 'get').and.returnValue(of([{ name: 'Book 1' }, { name: 'Book 2' }]));
+    spyOn(httpClient, 'get').and.returnValue(
+      of([
+        { name: 'Book 1', url: 'https://anapioficeandfire.com/api/books/1' },
+        { name: 'Book 2', url: 'https://anapioficeandfire.com/api/books/2' }
+      ])
+    );
 
-    service.getBooks().subscribe(books => {
-      expect(httpClient.get).toHaveBeenCalledWith(`${environment.baseApiUrl}/books`);
+    service.getBooks().subscribe((books) => {
+      expect(httpClient.get).toHaveBeenCalledWith(
+        `${environment.baseApiUrl}/books`
+      );
       expect(books.length).toBe(2);
+      expect(books[0].id).toBe('1');
       expect(books[0].name).toBe('Book 1');
+      expect(books[1].id).toBe('2');
       expect(books[1].name).toBe('Book 2');
       done();
     });

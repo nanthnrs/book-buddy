@@ -34,8 +34,8 @@ describe('BookEffects', () => {
   describe('loadBooks$', () => {
     it('should load books and dispatch setBooks action', (done) => {
       const booksMock: Book[] = [
-        { isbn: '123', name: 'Book 1' },
-        { isbn: '456', name: 'Book 2' }
+        { isbn: '123', name: 'Book 1', url: 'https://anapioficeandfire.com/api/books/1' },
+        { isbn: '456', name: 'Book 2', url: 'https://anapioficeandfire.com/api/books/2' }
       ] as Book[];
 
       spyOn(booksService, 'getBooks').and

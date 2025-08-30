@@ -11,6 +11,8 @@ export interface Book {
   characters: string[];
   povCharacters: string[];
 
+  // New property to uniquely identify a book
+  id: string;
   // New optional property to track favorite status
   isFavorite?: boolean;
 };
