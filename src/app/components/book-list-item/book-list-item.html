@@ -5,11 +5,8 @@
     {{ item.name }}
     <p class="text-sm text-gray-500">ISBN: {{ item.isbn }}</p>
   </a>
-  <button class="cursor-pointer px-3" (click)="toggleFavorite()">
-    @if (item.isFavorite) {
-    <i class="bi bi-heart-fill text-blue-500"></i>
-    } @else {
-    <i class="bi bi-heart"></i>
-    }
-  </button>
+  <app-favorite-button
+    [favorite]="!!item.isFavorite"
+    (click)="toggleFavorite()"
+  ></app-favorite-button>
 </li>

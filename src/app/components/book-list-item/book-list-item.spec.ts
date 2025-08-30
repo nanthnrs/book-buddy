@@ -97,6 +97,7 @@ describe('BookListItem', () => {
 
   describe('toggleFavorite', () => {
     beforeEach(() => {
+      spyOn(component, 'toggleFavorite').and.callThrough();
       spyOn(store, 'dispatch').and.callThrough();
     });
 
@@ -107,7 +108,13 @@ describe('BookListItem', () => {
         isFavorite: undefined,
       } as Book);
       await fixture.whenStable();
-      component.toggleFavorite();
+
+      const favoriteButton = nativeElement.querySelector(
+        'app-favorite-button button'
+      ) as HTMLButtonElement;
+      favoriteButton.click();
+
+      expect(component.toggleFavorite).toHaveBeenCalled();
       expect(store.dispatch).toHaveBeenCalledWith(
         BookActions.setFavorite({ id: '123', isFavorite: true })
       );
@@ -120,7 +127,13 @@ describe('BookListItem', () => {
         isFavorite: false,
       } as Book);
       await fixture.whenStable();
-      component.toggleFavorite();
+
+      const favoriteButton = nativeElement.querySelector(
+        'app-favorite-button button'
+      ) as HTMLButtonElement;
+      favoriteButton.click();
+
+      expect(component.toggleFavorite).toHaveBeenCalled();
       expect(store.dispatch).toHaveBeenCalledWith(
         BookActions.setFavorite({ id: '456', isFavorite: true })
       );
@@ -133,7 +146,13 @@ describe('BookListItem', () => {
         isFavorite: true,
       } as Book);
       await fixture.whenStable();
-      component.toggleFavorite();
+
+      const favoriteButton = nativeElement.querySelector(
+        'app-favorite-button button'
+      ) as HTMLButtonElement;
+      favoriteButton.click();
+
+      expect(component.toggleFavorite).toHaveBeenCalled();
       expect(store.dispatch).toHaveBeenCalledWith(
         BookActions.setFavorite({ id: '789', isFavorite: false })
       );

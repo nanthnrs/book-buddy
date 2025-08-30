@@ -3,10 +3,11 @@ import { RouterLink } from '@angular/router';
 import { Book } from '../../core/models/book';
 import { Store } from '@ngrx/store';
 import { BookActions } from '../../state/book/book.actions';
+import { FavoriteButton } from "../favorite-button/favorite-button";
 
 @Component({
   selector: 'app-book-list-item',
-  imports: [RouterLink],
+  imports: [RouterLink, FavoriteButton],
   templateUrl: './book-list-item.html',
   styleUrl: './book-list-item.css'
 })
