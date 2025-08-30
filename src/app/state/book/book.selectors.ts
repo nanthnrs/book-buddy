@@ -10,6 +10,11 @@ export const selectAllBooks = createSelector(
   (state) => state.books
 );
 
+export const selectFavoriteBooks = createSelector(
+  selectBookState,
+  (state) => state.books.filter(book => book.isFavorite)
+);
+
 export const selectLoadingBooks = createSelector(
   selectBookState,
   (state) => state.loading
