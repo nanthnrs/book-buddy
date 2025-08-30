@@ -50,19 +50,19 @@ describe('Book Reducer', () => {
       const initialState = {
         ...initialBookState,
         books: [
-          { isbn: '123', name: 'Book 1', isFavorite: false },
-          { isbn: '456', name: 'Book 2', isFavorite: true }
+          { id: '123', name: 'Book 1', isFavorite: false },
+          { id: '456', name: 'Book 2', isFavorite: true }
         ] as Book[]
       };
 
-      const action = BookActions.setFavorite({ isbn: '123', isFavorite: true });
+      const action = BookActions.setFavorite({ id: '123', isFavorite: true });
       const result = bookReducer(initialState, action);
 
       expect(result).toEqual({
         ...initialState,
         books: [
-          { isbn: '123', name: 'Book 1', isFavorite: true },
-          { isbn: '456', name: 'Book 2', isFavorite: true }
+          { id: '123', name: 'Book 1', isFavorite: true },
+          { id: '456', name: 'Book 2', isFavorite: true }
         ] as Book[]
       });
     });

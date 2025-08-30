@@ -27,11 +27,11 @@ export const bookReducer = createReducer(
     books: data,
     loading: false,
   })),
-  on(BookActions.setFavorite, (state, { isbn, isFavorite }) => ({
+  on(BookActions.setFavorite, (state, { id, isFavorite }) => ({
     ...state,
     books: state.books.map(book => ({
       ...book,
-      isFavorite: book.isbn === isbn ? isFavorite : book.isFavorite
+      isFavorite: book.id === id ? isFavorite : book.isFavorite
     }))
   }))
 );

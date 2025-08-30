@@ -13,14 +13,12 @@ import { BookActions } from '../../state/book/book.actions';
 export class BookListItem {
   book = input.required<Book>();
 
-  id = computed(() => this.book().url.split('/').pop());
-
   private store = inject(Store);
 
   toggleFavorite() {
     const book = this.book();
     this.store.dispatch(BookActions.setFavorite({
-      isbn: book.isbn,
+      id: book.id,
       isFavorite: !book.isFavorite
     }));
   }

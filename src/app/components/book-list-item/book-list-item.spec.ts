@@ -86,24 +86,24 @@ describe('BookListItem', () => {
     })
 
     it('should toggle when favorite is not defined', async () => {
-      fixture.componentRef.setInput('book', { ...mockBook, isbn: '123', isFavorite: undefined } as Book);
+      fixture.componentRef.setInput('book', { ...mockBook, id: '123', isFavorite: undefined } as Book);
       await fixture.whenStable();
       component.toggleFavorite();
-      expect(store.dispatch).toHaveBeenCalledWith(BookActions.setFavorite({ isbn: '123', isFavorite: true }));
+      expect(store.dispatch).toHaveBeenCalledWith(BookActions.setFavorite({ id: '123', isFavorite: true }));
     });
 
     it('should toggle when favorite is false', async () => {
-      fixture.componentRef.setInput('book', { ...mockBook, isbn: '456', isFavorite: false } as Book);
+      fixture.componentRef.setInput('book', { ...mockBook, id: '456', isFavorite: false } as Book);
       await fixture.whenStable();
       component.toggleFavorite();
-      expect(store.dispatch).toHaveBeenCalledWith(BookActions.setFavorite({ isbn: '456', isFavorite: true }));
+      expect(store.dispatch).toHaveBeenCalledWith(BookActions.setFavorite({ id: '456', isFavorite: true }));
     });
 
     it('should toggle when favorite is true', async () => {
-      fixture.componentRef.setInput('book', { ...mockBook, isbn: '789', isFavorite: true } as Book);
+      fixture.componentRef.setInput('book', { ...mockBook, id: '789', isFavorite: true } as Book);
       await fixture.whenStable();
       component.toggleFavorite();
-      expect(store.dispatch).toHaveBeenCalledWith(BookActions.setFavorite({ isbn: '789', isFavorite: false }));
+      expect(store.dispatch).toHaveBeenCalledWith(BookActions.setFavorite({ id: '789', isFavorite: false }));
     });
   });
 });
