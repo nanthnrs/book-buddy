@@ -17,6 +17,7 @@ describe('BookListItem', () => {
   let store: MockStore;
 
   let mockBook = {
+    id: '1',
     name: 'Book 1',
     url: 'https://anapioficeandfire.com/api/books/1',
   } as Book;
@@ -136,6 +137,13 @@ describe('BookListItem', () => {
       expect(store.dispatch).toHaveBeenCalledWith(
         BookActions.setFavorite({ id: '789', isFavorite: false })
       );
+    });
+  });
+
+  describe('navigation', () => {
+    it('should have a routerLink to book detail page', () => {
+      const anchor = nativeElement.querySelector('a');
+      expect(anchor?.getAttribute('href')).toBe('/books/1');
     });
   });
 });
