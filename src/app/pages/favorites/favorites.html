@@ -1,1 +1,7 @@
-<p>favorites works!</p>
+@let items = books(); @if (items.length) {
+<app-book-list [books]="items"></app-book-list>
+} @else {
+<p id="no-favorites" class="text-center">
+  No favorite books found.
+</p>
+}
