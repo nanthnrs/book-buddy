@@ -25,7 +25,7 @@ describe('BooksService', () => {
     spyOn(httpClient, 'get').and.returnValue(
       of([
         { name: 'Book 1', url: 'https://anapioficeandfire.com/api/books/1' },
-        { name: 'Book 2', url: 'https://anapioficeandfire.com/api/books/2' }
+        { name: 'Book 2', url: 'https://anapioficeandfire.com/api/books/2' },
       ])
     );
 
@@ -38,6 +38,21 @@ describe('BooksService', () => {
       expect(books[0].name).toBe('Book 1');
       expect(books[1].id).toBe('2');
       expect(books[1].name).toBe('Book 2');
+      done();
+    });
+  });
+
+  it('should fetch a book by id', (done: DoneFn) => {
+    spyOn(httpClient, 'get').and.returnValue(
+      of({ name: 'Book 1', url: 'https://anapioficeandfire.com/api/books/1' })
+    );
+
+    service.getBook('1').subscribe((book) => {
+      expect(httpClient.get).toHaveBeenCalledWith(
+        `${environment.baseApiUrl}/books/1`
+      );
+      expect(book.id).toBe('1');
+      expect(book.name).toBe('Book 1');
       done();
     });
   });
