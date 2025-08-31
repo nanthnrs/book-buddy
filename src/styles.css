@@ -11,3 +11,8 @@
 .link-active {
   @apply bg-blue-100 text-blue-500;
 }
+
+form.ng-invalid.ng-submitted input.ng-invalid,
+form.ng-invalid input.ng-invalid.ng-dirty.ng-touched {
+  @apply border border-red-500;
+}
