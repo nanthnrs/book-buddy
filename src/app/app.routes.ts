@@ -1,29 +1,39 @@
 import { Routes } from '@angular/router';
+import { Secure } from './layout/secure/secure';
 
 export const routes: Routes = [
   {
-    path: 'books',
+    path: '',
+    component: Secure,
     children: [
       {
-        path: '',
-        loadComponent: () => import('./pages/books/books').then((m) => m.Books),
+        path: 'books',
+        children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import('./pages/books/books').then((m) => m.Books),
+          },
+          {
+            path: ':id',
+            loadComponent: () =>
+              import('./pages/book-detail/book-detail').then(
+                (m) => m.BookDetail
+              ),
+          },
+        ],
       },
       {
-        path: ':id',
+        path: 'favorites',
         loadComponent: () =>
-          import('./pages/book-detail/book-detail').then((m) => m.BookDetail),
+          import('./pages/favorites/favorites').then((m) => m.Favorites),
+      },
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'books',
       },
     ],
-  },
-  {
-    path: 'favorites',
-    loadComponent: () =>
-      import('./pages/favorites/favorites').then((m) => m.Favorites),
-  },
-  {
-    path: '',
-    redirectTo: 'books',
-    pathMatch: 'full',
   },
   {
     path: '**',
