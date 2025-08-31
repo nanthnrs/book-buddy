@@ -7,8 +7,10 @@
       class="flex gap-x-2 p-2 rounded-xl"
       [routerLink]="item.path"
       routerLinkActive="link-active"
+      #rla="routerLinkActive"
     >
-      <i [class]="item.icon"></i> {{ item.label }}
+      <i [ngClass]="rla.isActive ? item.activeIcon : item.icon"></i>
+      {{ item.label }}
     </a>
   </div>
   }
