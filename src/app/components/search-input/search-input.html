@@ -1,0 +1,12 @@
+<div class="flex items-center text-gray-500 relative">
+  <i class="absolute left-3 bi bi-search text-sm"></i>
+  <input
+    type="search"
+    name="search"
+    id="search-input"
+    [placeholder]="placeholder()"
+    class="w-full grow py-2 pl-9 pr-3 border border-gray-300 rounded placeholder:text-gray-500 placeholder:text-sm"
+    [value]="value()"
+    (input)="onInput($event)"
+  />
+</div>

@@ -1,5 +1,17 @@
-@if (loading()) {
-<p id="loading-books" class="text-center mb-2">Loading...</p>
-}
+<div class="h-full flex flex-col">
+  <div class="mb-3">
+    <app-search-input
+      placeholder="Search for name, author, publisher, or ISBN"
+      [value]="searchTerm()"
+      (valueChange)="onSearchTermChange($event)"
+    ></app-search-input>
+  </div>
 
-<app-book-list [books]="books()"></app-book-list>
+  <div class="h-full overflow-auto pr-3 -mr-3">
+    @if (loading()) {
+    <p id="loading-books" class="text-center mb-2">Loading...</p>
+    } @else {
+    <app-book-list [books]="filteredBooks()"></app-book-list>
+    }
+  </div>
+</div>

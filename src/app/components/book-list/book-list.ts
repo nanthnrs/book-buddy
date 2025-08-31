@@ -9,5 +9,6 @@ import { BookListItem } from "../book-list-item/book-list-item";
   styleUrl: './book-list.css'
 })
 export class BookList {
+  notFoundText = input('No books found.');
   books = input.required<Book[]>();
 }

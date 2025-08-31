@@ -41,4 +41,13 @@ describe('BookList', () => {
     const listItems = nativeElement.querySelectorAll('#book-list app-book-list-item');
     expect(listItems.length).toBe(3);
   });
+
+  it('should display not found text when book list is empty', async () => {
+    fixture.componentRef.setInput('books', []);
+    fixture.componentRef.setInput('notFoundText', 'No books found.');
+    fixture.detectChanges();
+    const notFoundEl = nativeElement.querySelector('#no-books-found') as HTMLParagraphElement;
+    expect(notFoundEl).toBeTruthy();
+    expect(notFoundEl.textContent).toContain('No books found.');
+  });
 });

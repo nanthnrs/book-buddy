@@ -1,5 +1,11 @@
+@let items = books(); @if (items.length) {
 <ul id="book-list" class="divide-y divide-gray-200">
-  @for (book of books(); track book.url) {
+  @for (book of items; track book.url) {
   <app-book-list-item [book]="book"></app-book-list-item>
   }
 </ul>
+} @else {
+<p id="no-books-found" class="text-center">
+  {{ notFoundText() }}
+</p>
+}
