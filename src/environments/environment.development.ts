@@ -1,3 +1,4 @@
 export const environment = {
-  baseApiUrl: 'https://anapioficeandfire.com/api/'
+  baseAuthApiUrl: 'http://localhost:3000/auth',
+  baseApiUrl: 'https://anapioficeandfire.com/api/',
 };
