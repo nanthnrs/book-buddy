@@ -3,7 +3,9 @@
 @import "bootstrap-icons/font/bootstrap-icons";
 
 @plugin "daisyui" {
-  themes: light --default, corporate;
+  themes:
+    light --default,
+    corporate;
 }
 
 @theme {
@@ -12,11 +14,10 @@
   --sidebar-width: 300px;
 }
 
-.link-active {
-  @apply bg-blue-100 text-blue-500;
+.validator-error {
+  @apply text-red-500 text-sm font-light;
 }
 
-form.ng-invalid.ng-submitted input.ng-invalid,
-form.ng-invalid input.ng-invalid.ng-dirty.ng-touched {
-  @apply border border-red-500;
+input::placeholder {
+  @apply text-gray-500;
 }
