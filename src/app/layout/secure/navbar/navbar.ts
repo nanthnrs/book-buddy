@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { menuItems } from '../../../core/constants/menu';
-import { NgClass } from '@angular/common';
 
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink, RouterLinkActive, NgClass],
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css'
 })

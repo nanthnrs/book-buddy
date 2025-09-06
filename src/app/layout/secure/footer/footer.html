@@ -1,11 +1,8 @@
-<footer
-  class="w-full fixed bottom-0 grid grid-cols-2 divide-x-2 divide-gray-200 md:hidden h-(--footer-height) border-t border-t-gray-200"
->
+<div class="md:hidden dock border-t border-t-gray-200">
   @for (item of items; track $index) {
   <a
-    class="flex justify-center items-center"
     [routerLink]="item.path"
-    routerLinkActive="link-active"
+    routerLinkActive="dock-active"
     #rla="routerLinkActive"
   >
     @if (rla.isActive) {
@@ -13,6 +10,7 @@
     } @else {
     <i [class]="item.icon"></i>
     }
+    <span class="dock-label">{{ item.label }}</span>
   </a>
   }
-</footer>
+</div>

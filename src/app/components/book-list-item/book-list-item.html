@@ -1,7 +1,7 @@
 @let item = book();
 
 <li class="flex justify-between items-center p-2">
-  <a [routerLink]="['', 'books', item.id]" class="grow font-medium text-lg">
+  <a [routerLink]="['', 'books', item.id]" class="grow font-medium">
     {{ item.name }}
     <p class="text-sm text-gray-500">ISBN: {{ item.isbn }}</p>
   </a>

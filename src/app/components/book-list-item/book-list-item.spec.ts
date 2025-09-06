@@ -91,7 +91,7 @@ describe('BookListItem', () => {
       const favoriteIcon = nativeElement.querySelector('li i.bi');
 
       expect(listItem?.textContent).toContain('Book 3');
-      expect(favoriteIcon?.className).toEqual('bi bi-heart-fill text-blue-500');
+      expect(favoriteIcon?.className).toEqual('bi bi-heart-fill text-red-500');
     });
   });
 

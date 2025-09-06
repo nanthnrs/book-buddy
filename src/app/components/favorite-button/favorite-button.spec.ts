@@ -37,7 +37,7 @@ describe('FavoriteButton', () => {
 
     const icon = fixture.nativeElement.querySelector('button i.bi') as HTMLLIElement;
     expect(icon).toBeTruthy();
-    expect(icon.className).toEqual('bi bi-heart-fill text-blue-500');
+    expect(icon.className).toEqual('bi bi-heart-fill text-red-500');
   });
 
   it('should emit click event when button is clicked', () => {

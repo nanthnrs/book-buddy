@@ -157,7 +157,7 @@ describe('BookDetail', () => {
 
     const icon = button?.querySelector('i.bi');
     expect(icon).toBeTruthy();
-    expect(icon?.className).toBe('bi bi-heart-fill text-blue-500');
+    expect(icon?.className).toBe('bi bi-heart-fill text-red-500');
   });
 
   it('should dispatch setFavorite action when favorite button is clicked', async () => {
