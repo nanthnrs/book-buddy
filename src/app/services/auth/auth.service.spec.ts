@@ -4,10 +4,12 @@ import { AuthService } from './auth.service';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { LocalStorage } from '../local-storage/local-storage';
 
 describe('AuthService', () => {
   let service: AuthService;
   let httpClient: HttpClient;
+  let storage: LocalStorage;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -15,6 +17,7 @@ describe('AuthService', () => {
     });
     service = TestBed.inject(AuthService);
     httpClient = TestBed.inject(HttpClient);
+    storage = TestBed.inject(LocalStorage);
   });
 
   it('should be created', () => {
@@ -64,4 +67,12 @@ describe('AuthService', () => {
       });
     });
   });
+
+  describe('signOut', () => {
+    it('should remove auth token from local storage', () => {
+      const spy = spyOn(storage, 'removeItem').and.callThrough();
+      service.signOut();
+      expect(spy).toHaveBeenCalledOnceWith('authToken');
+    });
+  })
 });

@@ -18,10 +18,6 @@ export class AuthService {
     return this.storage.getItem('authToken');
   }
 
-  removeAuthToken(): void {
-    this.storage.removeItem('authToken');
-  }
-
   isAuthenticated(): boolean {
     return !!this.getAuthToken();
   }
@@ -38,5 +34,13 @@ export class AuthService {
       `${environment.baseAuthApiUrl}/sign-up`,
       data
     );
+  }
+
+  signOut() {
+    this.removeAuthToken();
+  }
+
+  private removeAuthToken(): void {
+    this.storage.removeItem('authToken');
   }
 }
