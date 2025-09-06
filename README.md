@@ -12,6 +12,7 @@
 ## Project structure
 
 ```.
+server                          # Mock Auth API (Hono)
 src/
   app/
     components/                 # Shared UI components
@@ -29,10 +30,11 @@ src/
   environments/
     environment.development.ts  # Development configuration
     environment.ts              # Production configuration
-
 ```
 
 ## Development server
+
+### Frontend
 
 To start a local development server, run:
 
@@ -41,6 +43,17 @@ npm start
 ```
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+
+### Backend (Auth API)
+
+To start a web api for authentication
+
+```bash
+cd server
+npm run dev
+```
+
+The web api will be running on `http://localhost:3000`
 
 ## Building
 
