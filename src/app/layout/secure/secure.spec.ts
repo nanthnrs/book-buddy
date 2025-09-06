@@ -9,6 +9,8 @@ import {
   initialBookState,
 } from '../../state/book/book.reducer';
 import { BookActions } from '../../state/book/book.actions';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('Secure', () => {
   let component: Secure;
@@ -25,6 +27,8 @@ describe('Secure', () => {
             [bookFeatureKey]: initialBookState,
           },
         }),
+        provideHttpClient(),
+        provideHttpClientTesting()
       ],
     }).compileComponents();
 
