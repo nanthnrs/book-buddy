@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { BookActions } from '../../state/book/book.actions';
-import { selectLoadingBooks } from '../../state/book/book.selectors';
+import { BookActions } from '../../../state/book/book.actions';
+import { selectLoadingBooks } from '../../../state/book/book.selectors';
 
 @Component({
   selector: 'app-header',

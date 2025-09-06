@@ -2,9 +2,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Header } from './header';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { bookFeatureKey, initialBookState } from '../../state/book/book.reducer';
-import { selectLoadingBooks } from '../../state/book/book.selectors';
-import { BookActions } from '../../state/book/book.actions';
+import { bookFeatureKey, initialBookState } from '../../../state/book/book.reducer';
+import { selectLoadingBooks } from '../../../state/book/book.selectors';
+import { BookActions } from '../../../state/book/book.actions';
 
 describe('Header', () => {
   let component: Header;

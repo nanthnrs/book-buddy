@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { menuItems } from '../../core/constants/menu';
+import { menuItems } from '../../../core/constants/menu';
 import { NgClass } from '@angular/common';
 
 
