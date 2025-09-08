@@ -37,15 +37,6 @@ describe('SignIn', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render sign in form', () => {
-    expect(nativeElement.querySelector('form')).toBeTruthy();
-    expect(nativeElement.querySelector('input#email')).toBeTruthy();
-    expect(nativeElement.querySelector('input#password')).toBeTruthy();
-    expect(
-      nativeElement.querySelector('form button[type="submit"]'),
-    ).toBeTruthy();
-  });
-
   describe('signIn', () => {
     let emailInput: HTMLInputElement;
     let passwordInput: HTMLInputElement;
@@ -59,6 +50,13 @@ describe('SignIn', () => {
       submitButton = nativeElement.querySelector(
         '#btn-sign-in',
       ) as HTMLButtonElement;
+    });
+
+    it('should render sign in form', () => {
+      expect(nativeElement.querySelector('form')).toBeTruthy();
+      expect(emailInput).toBeTruthy();
+      expect(passwordInput).toBeTruthy();
+      expect(submitButton).toBeTruthy();
     });
 
     it('should render error message when form is invalid', () => {
