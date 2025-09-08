@@ -4,7 +4,7 @@ import { SignIn } from './sign-in';
 import { AuthService } from '../../services/auth/auth.service';
 import { HttpErrorResponse, provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { Router } from '@angular/router';
+import { provideRouter, Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
 
 describe('SignIn', () => {
@@ -17,7 +17,11 @@ describe('SignIn', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [SignIn],
-      providers: [provideHttpClient(), provideHttpClientTesting()],
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        provideRouter([]),
+      ],
     }).compileComponents();
 
     authService = TestBed.inject(AuthService);
@@ -162,6 +166,16 @@ describe('SignIn', () => {
       expect(authService.signIn).toHaveBeenCalled();
       expect(authService.setAuthToken).not.toHaveBeenCalled();
       expect(router.navigate).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('sign up link', () => {
+    it('should render sign up link', () => {
+      const signUpLink = nativeElement.querySelector(
+        'a[href="/sign-up"]',
+      ) as HTMLAnchorElement;
+      expect(signUpLink).toBeTruthy();
+      expect(signUpLink.textContent).toContain('Sign up');
     });
   });
 });
