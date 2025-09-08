@@ -79,4 +79,21 @@ describe('AuthService', () => {
       expect(spy).toHaveBeenCalledOnceWith('authToken');
     });
   });
+
+  describe('getProfile', () => {
+    it('should call get profile api', (done) => {
+      const user = { name: 'User', email: 'user@email.com' };
+
+      spyOn(httpClient, 'get').and.returnValue(
+        of({
+          data: user,
+        }),
+      );
+
+      service.getProfile().subscribe((res) => {
+        expect(res).toEqual({ data: user });
+        done();
+      });
+    });
+  });
 });

@@ -36,6 +36,12 @@ export class AuthService {
     );
   }
 
+  getProfile() {
+    return this.http.get<{ data: { name: string; email: string } }>(
+      `${environment.baseAuthApiUrl}/profile`,
+    );
+  }
+
   signOut() {
     this.removeAuthToken();
   }
