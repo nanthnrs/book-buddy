@@ -67,6 +67,28 @@ authRoutes.post('/sign-in', async (c) => {
   });
 });
 
+authRoutes.get('/profile', (c) => {
+  const authHeader = c.req.header('Authorization');
+
+  if (!authHeader) {
+    return c.json({ message: 'Authorization header is missing' }, 401);
+  }
+
+  const token = authHeader.replace('Bearer ', '');
+  const user = store.get(token);
+
+  if (!user) {
+    return c.json({ message: 'Invalid auth token' }, 401);
+  }
+
+  return c.json({
+    data: {
+      name: user.name,
+      email: user.email,
+    },
+  });
+});
+
 authRoutes.get('/users', (c) => {
   return c.json({
     users: Array.from(store.values()),
