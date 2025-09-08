@@ -32,13 +32,13 @@ describe('AuthService', () => {
           data: {
             email: signInData.email,
           },
-        })
+        }),
       );
 
       service.signIn(signInData).subscribe((res) => {
         expect(spy).toHaveBeenCalledOnceWith(
           `${environment.baseAuthApiUrl}/sign-in`,
-          signInData
+          signInData,
         );
         expect(res.data.email).toBe(signInData.email);
         done();
@@ -48,19 +48,23 @@ describe('AuthService', () => {
 
   describe('signUp', () => {
     it('should call sign up api', (done) => {
-      const signUpData = { email: 'test@mail.com', password: 'password' };
+      const signUpData = {
+        name: 'Nanthawut',
+        email: 'test@mail.com',
+        password: 'password',
+      };
       const spy = spyOn(httpClient, 'post').and.returnValue(
         of({
           data: {
             email: signUpData.email,
           },
-        })
+        }),
       );
 
       service.signUp(signUpData).subscribe((res) => {
         expect(spy).toHaveBeenCalledOnceWith(
           `${environment.baseAuthApiUrl}/sign-up`,
-          signUpData
+          signUpData,
         );
         expect(res.data.email).toBe(signUpData.email);
         done();
@@ -74,5 +78,5 @@ describe('AuthService', () => {
       service.signOut();
       expect(spy).toHaveBeenCalledOnceWith('authToken');
     });
-  })
+  });
 });

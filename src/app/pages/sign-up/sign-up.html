@@ -2,79 +2,86 @@
   <div class="w-8/12 sm:w-6/12 md:w-4/12 lg:w-3/12 flex flex-col">
     <h1 class="text-2xl font-bold mb-4">Book Buddy</h1>
     <h2 class="text-xl font-semibold mb-6">Sign up</h2>
-    @if (errors().length) {
-    <div class="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
-      <ul>
-        @for (error of errors(); track error) {
-        <li>{{ error }}</li>
-        }
-      </ul>
-    </div>
-    }
-    <form class="" [formGroup]="form" (ngSubmit)="onSubmit()">
-      <div class="mb-4">
-        <label for="name" class="block text-gray-700 mb-2">Name</label>
+    <form class="space-y-2" [formGroup]="form" (ngSubmit)="onSubmit()">
+      @if (error()) {
+        <div role="alert" class="alert alert-error alert-soft alert-horizontal">
+          <i class="bi bi-exclamation-circle"></i>
+          <span>{{ error() }}</span>
+        </div>
+      }
+      <fieldset class="fieldset">
+        <label for="name" class="label">Name</label>
         <input
           type="text"
           id="name"
           name="name"
-          class="w-full px-3 py-2 border border-gray-300 rounded placeholder:text-sm placeholder:text-gray-500"
+          autocomplete="name"
+          class="input"
+          [class.input-error]="invalidName"
           placeholder="Enter your name"
           formControlName="name"
         />
-        @if (name.invalid && name.dirty && name.touched) { @if
-        (name.hasError('required')) {
-        <p class="text-red-500 text-sm">Name is required.</p>
-        } @if (name.hasError('minlength')) {
-        <p class="text-red-500 text-sm">
-          Name must be at least
-          {{ name.getError("minlength").requiredLength }} characters long.
-        </p>
-        } }
-      </div>
-      <div class="mb-4">
-        <label for="email" class="block text-gray-700 mb-2">Email</label>
+        @if (invalidName) {
+          @if (name.hasError("required")) {
+            <p class="validator-error">Name is required.</p>
+          }
+          @if (name.hasError("minlength")) {
+            <p class="validator-error">
+              Name must be at least
+              {{ name.getError("minlength").requiredLength }} characters long.
+            </p>
+          }
+        }
+        <label for="email" class="label">Email</label>
         <input
           type="email"
           id="email"
           name="email"
-          class="w-full px-3 py-2 border border-gray-300 rounded placeholder:text-sm placeholder:text-gray-500"
+          class="input"
+          [class.input-error]="invalidEmail"
           placeholder="Enter your email"
           formControlName="email"
+          autocomplete="email"
         />
-        @if (email.invalid && email.dirty && email.touched) { @if
-        (email.hasError('required')) {
-        <p class="text-red-500 text-sm">Email is required.</p>
-        } @if (email.hasError('email')) {
-        <p class="text-red-500 text-sm">Email must be a valid email address.</p>
-        } }
-      </div>
-      <div class="mb-4">
-        <label for="password" class="block text-gray-700 mb-2">Password</label>
+        @if (invalidEmail) {
+          @if (email.hasError("required")) {
+            <p class="validator-error">Email is required.</p>
+          }
+          @if (email.hasError("email")) {
+            <p class="validator-error">Email must be a valid email address.</p>
+          }
+        }
+        <label for="password" class="label">Password</label>
         <input
           type="password"
           id="password"
           name="password"
-          class="w-full px-3 py-2 border border-gray-300 rounded placeholder:text-sm placeholder:text-gray-500"
+          class="input"
+          [class.input-error]="invalidPassword"
           placeholder="Enter your password"
           formControlName="password"
         />
-        @if (password.invalid && password.dirty && password.touched) { @if
-        (password.hasError('required')) {
-        <p class="text-red-500 text-sm">Password is required.</p>
-        } @if (password.hasError('minlength')) {
-        <p class="text-red-500 text-sm">
-          Password must be at least
-          {{ password.getError("minlength").requiredLength }} characters long.
-        </p>
-        } }
-      </div>
-      <button
-        type="submit"
-        class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 cursor-pointer"
-      >
+        @if (invalidPassword) {
+          @if (password.hasError("required")) {
+            <p class="validator-error">Password is required.</p>
+          }
+          @if (password.hasError("minlength")) {
+            <p class="validator-error">
+              Password must be at least
+              {{ password.getError("minlength").requiredLength }} characters
+              long.
+            </p>
+          }
+        }
+      </fieldset>
+      <button id="btn-sign-up" type="submit" class="btn btn-primary w-full">
         Sign up
       </button>
     </form>
+    <div class="divider"></div>
+    <p class="text-sm">
+      Already have an account?
+      <a routerLink="/sign-in" class="link link-primary">Sign in</a>
+    </p>
   </div>
 </div>

@@ -25,14 +25,14 @@ export class AuthService {
   signIn(data: { email: string; password: string }) {
     return this.http.post<{ data: { email: string } }>(
       `${environment.baseAuthApiUrl}/sign-in`,
-      data
+      data,
     );
   }
 
-  signUp(data: { email: string; password: string }) {
+  signUp(data: { name: string; email: string; password: string }) {
     return this.http.post<{ data: { email: string } }>(
       `${environment.baseAuthApiUrl}/sign-up`,
-      data
+      data,
     );
   }
 
