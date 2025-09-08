@@ -27,7 +27,12 @@ authRoutes.post('/sign-up', async (c) => {
   }
 
   if (store.has(email)) {
-    return c.json({ message: 'User already exists' }, 400);
+    return c.json(
+      {
+        message: 'Email is already registered. Please use a different email.',
+      },
+      400,
+    );
   }
 
   store.set(email, { name, email, password });
