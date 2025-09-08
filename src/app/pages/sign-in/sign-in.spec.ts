@@ -59,7 +59,7 @@ describe('SignIn', () => {
       expect(submitButton).toBeTruthy();
     });
 
-    it('should render error message when form is invalid', () => {
+    it('should render error message when form is empty', () => {
       spyOn(authService, 'signIn');
 
       emailInput.value = '';
@@ -71,19 +71,46 @@ describe('SignIn', () => {
       submitButton.click();
       fixture.detectChanges();
 
-      const emailValidatorError = nativeElement.querySelector(
+      const emailError = nativeElement.querySelector(
         '#email + p.validator-error',
       );
-      const passwordValidatorError = nativeElement.querySelector(
+      const passwordError = nativeElement.querySelector(
         '#password + p.validator-error',
       );
 
-      expect(emailValidatorError)
+      expect(emailError?.textContent)
         .withContext('email validator error')
-        .toBeTruthy();
-      expect(passwordValidatorError)
+        .toContain('Email is required.');
+      expect(passwordError?.textContent)
         .withContext('password validator error')
-        .toBeTruthy();
+        .toContain('Password is required.');
+
+      expect(authService.signIn).not.toHaveBeenCalled();
+    });
+
+    it('should render error message when form is invalid', () => {
+      spyOn(authService, 'signIn');
+
+      emailInput.value = 'invalid-email';
+      emailInput.dispatchEvent(new Event('input'));
+
+      passwordInput.value = 'password';
+      passwordInput.dispatchEvent(new Event('input'));
+
+      submitButton.click();
+      fixture.detectChanges();
+
+      const emailError = nativeElement.querySelector(
+        '#email + p.validator-error',
+      );
+      const passwordError = nativeElement.querySelector(
+        '#password + p.validator-error',
+      );
+
+      expect(emailError?.textContent)
+        .withContext('email validator error')
+        .toContain('Email must be a valid email address.');
+      expect(passwordError).withContext('password validator error').toBeFalsy();
 
       expect(authService.signIn).not.toHaveBeenCalled();
     });
@@ -133,7 +160,7 @@ describe('SignIn', () => {
       expect(router.navigate).toHaveBeenCalledOnceWith(['/']);
     });
 
-    it('should render error message when sign in failed', () => {
+    it('should render error message when invalid email or password', () => {
       spyOn(authService, 'signIn').and.returnValue(
         throwError(
           () =>
@@ -141,6 +168,7 @@ describe('SignIn', () => {
               error: {
                 message: 'Invalid email or password',
               },
+              status: 401,
             }),
         ),
       );
@@ -160,6 +188,39 @@ describe('SignIn', () => {
 
       expect(alertError).withContext('alert error').toBeTruthy();
       expect(alertError?.textContent).toContain('Invalid email or password');
+
+      expect(authService.signIn).toHaveBeenCalled();
+      expect(authService.setAuthToken).not.toHaveBeenCalled();
+      expect(router.navigate).not.toHaveBeenCalled();
+    });
+
+    it('should render generic error message when sign in fails', () => {
+      spyOn(authService, 'signIn').and.returnValue(
+        throwError(
+          () =>
+            new HttpErrorResponse({
+              status: 500,
+            }),
+        ),
+      );
+      spyOn(authService, 'setAuthToken');
+      spyOn(router, 'navigate');
+
+      emailInput.value = 'user@email.com';
+      emailInput.dispatchEvent(new Event('input'));
+
+      passwordInput.value = 'password';
+      passwordInput.dispatchEvent(new Event('input'));
+
+      submitButton.click();
+      fixture.detectChanges();
+
+      const alertError = nativeElement.querySelector('[role="alert"]');
+
+      expect(alertError).withContext('alert error').toBeTruthy();
+      expect(alertError?.textContent).toContain(
+        'An unexpected error occurred. Please try again later.',
+      );
 
       expect(authService.signIn).toHaveBeenCalled();
       expect(authService.setAuthToken).not.toHaveBeenCalled();

@@ -22,7 +22,12 @@
           formControlName="email"
         />
         @if (invalidEmail) {
-          <p class="validator-error">Enter valid email address</p>
+          @if (email.hasError("required")) {
+            <p class="validator-error">Email is required.</p>
+          }
+          @if (email.hasError("email")) {
+            <p class="validator-error">Email must be a valid email address.</p>
+          }
         }
         <label for="password" class="label">Password</label>
         <input
@@ -35,7 +40,9 @@
           formControlName="password"
         />
         @if (invalidPassword) {
-          <p class="validator-error">Password is required</p>
+          @if (password.hasError("required")) {
+            <p class="validator-error">Password is required.</p>
+          }
         }
       </fieldset>
       <button id="btn-sign-in" type="submit" class="btn btn-primary w-full">

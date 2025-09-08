@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-sign-in',
@@ -44,6 +45,7 @@ export class SignIn {
 
   signIn() {
     if (this.form.invalid) {
+      this.form.markAllAsTouched();
       return;
     }
 
@@ -53,11 +55,16 @@ export class SignIn {
         this.authService.setAuthToken(response.data.email);
         this.router.navigate(['/']);
       },
-      error: (error) => {
+      error: (error: HttpErrorResponse) => {
         console.error('Error signing in', error);
-        this.error.set(
-          error?.error?.message || 'Failed to sign in! Please try again.',
-        );
+
+        if (error.status === 401 && error.error?.message) {
+          this.error.set(error.error.message);
+        } else {
+          this.error.set(
+            'An unexpected error occurred. Please try again later.',
+          );
+        }
       },
     });
   }
