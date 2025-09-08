@@ -244,4 +244,12 @@ describe('SignUp', () => {
       expect(alertError?.textContent).toContain(defaultErrorMessage);
     });
   });
+
+  it('should render sign in link', () => {
+    const signInLink = nativeElement.querySelector(
+      'a[href="/sign-in"]',
+    ) as HTMLAnchorElement;
+    expect(signInLink).toBeTruthy();
+    expect(signInLink.textContent).toContain('Sign in');
+  });
 });
