@@ -37,8 +37,17 @@ export class AuthService {
   }
 
   getProfile() {
+    const authToken = this.getAuthToken();
+    if (!authToken) {
+      throw new Error('No auth token found');
+    }
     return this.http.get<{ data: { name: string; email: string } }>(
       `${environment.baseAuthApiUrl}/profile`,
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      },
     );
   }
 

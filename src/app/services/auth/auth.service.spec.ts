@@ -81,9 +81,10 @@ describe('AuthService', () => {
   });
 
   describe('getProfile', () => {
-    it('should call get profile api', (done) => {
+    it('should call get profile api with auth token', (done) => {
       const user = { name: 'User', email: 'user@email.com' };
 
+      spyOn(service, 'getAuthToken').and.returnValue('auth-token');
       spyOn(httpClient, 'get').and.returnValue(
         of({
           data: user,
@@ -91,9 +92,22 @@ describe('AuthService', () => {
       );
 
       service.getProfile().subscribe((res) => {
+        expect(httpClient.get).toHaveBeenCalledOnceWith(
+          `${environment.baseAuthApiUrl}/profile`,
+          {
+            headers: {
+              Authorization: 'Bearer auth-token',
+            },
+          },
+        );
         expect(res).toEqual({ data: user });
         done();
       });
+    });
+
+    it('should throw error if no auth token found', () => {
+      spyOn(service, 'getAuthToken').and.returnValue(null);
+      expect(() => service.getProfile()).toThrowError('No auth token found');
     });
   });
 });
