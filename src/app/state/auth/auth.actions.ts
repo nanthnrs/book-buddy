@@ -4,7 +4,7 @@ export const AuthActions = createActionGroup({
   source: 'Auth',
   events: {
     'Load Auth': emptyProps(),
-    'Set Auth': props<{ name: string; email: string }>(),
-    'Clear Auth': emptyProps(),
+    'Load Auth Success': props<{ name: string; email: string }>(),
+    'Load Auth Failure': emptyProps(),
   },
 });

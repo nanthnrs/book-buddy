@@ -7,11 +7,13 @@ import { AuthActions } from './auth.actions';
 import { AuthService } from '../../services/auth/auth.service';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { Router } from '@angular/router';
 
 describe('AuthEffects', () => {
   let actions$: Observable<any>;
   let effects: AuthEffects;
   let authService: AuthService;
+  let router: Router;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -25,6 +27,7 @@ describe('AuthEffects', () => {
 
     effects = TestBed.inject(AuthEffects);
     authService = TestBed.inject(AuthService);
+    router = TestBed.inject(Router);
   });
 
   it('should be created', () => {
@@ -32,7 +35,7 @@ describe('AuthEffects', () => {
   });
 
   describe('loadAuth', () => {
-    it('should set auth action when get profile successfully', (done) => {
+    it('should call loadAuthSuccess action when get profile successfully', (done) => {
       const profile = { name: 'user', email: 'user@email.com' };
       spyOn(authService, 'getProfile').and.returnValue(of({ data: profile }));
 
@@ -41,7 +44,7 @@ describe('AuthEffects', () => {
       effects.loadAuths$.subscribe((action) => {
         expect(authService.getProfile).toHaveBeenCalled();
         expect(action).toEqual(
-          AuthActions.setAuth({
+          AuthActions.loadAuthSuccess({
             name: profile.name,
             email: profile.email,
           }),
@@ -50,14 +53,29 @@ describe('AuthEffects', () => {
       });
     });
 
-    it('should clear auth action when get profile failed', (done) => {
-      spyOn(authService, 'getProfile').and.returnValue(throwError(() => new Error('Error')));
+    it('should call loadAuthFailure action when get profile failed', (done) => {
+      spyOn(authService, 'getProfile').and.returnValue(
+        throwError(() => new Error('Error')),
+      );
 
       actions$ = of(AuthActions.loadAuth());
 
       effects.loadAuths$.subscribe((action) => {
         expect(authService.getProfile).toHaveBeenCalled();
-        expect(action).toEqual(AuthActions.clearAuth());
+        expect(action).toEqual(AuthActions.loadAuthFailure());
+        done();
+      });
+    });
+
+    it('should sign out and navigate to sign-in page when loadAuthFailure action is dispatched', (done) => {
+      spyOn(authService, 'signOut');
+      spyOn(router, 'navigateByUrl');
+
+      actions$ = of(AuthActions.loadAuthFailure());
+
+      effects.loadAuthFailure$.subscribe(() => {
+        expect(authService.signOut).toHaveBeenCalled();
+        expect(router.navigateByUrl).toHaveBeenCalledWith('/sign-in');
         done();
       });
     });

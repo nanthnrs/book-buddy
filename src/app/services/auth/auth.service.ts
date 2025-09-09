@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { LocalStorage } from '../local-storage/local-storage';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -39,7 +40,7 @@ export class AuthService {
   getProfile() {
     const authToken = this.getAuthToken();
     if (!authToken) {
-      throw new Error('No auth token found');
+      return throwError(() => new Error('No auth token found'));
     }
     return this.http.get<{ data: { name: string; email: string } }>(
       `${environment.baseAuthApiUrl}/profile`,

@@ -21,7 +21,7 @@ export const initialAuthState: AuthState = {
 
 export const authReducer = createReducer(
   initialAuthState,
-  on(AuthActions.setAuth, (state, { name, email }) => ({
+  on(AuthActions.loadAuthSuccess, (state, { name, email }) => ({
     ...state,
     user: {
       name,
@@ -29,7 +29,7 @@ export const authReducer = createReducer(
     },
     authenticated: true,
   })),
-  on(AuthActions.clearAuth, () => initialAuthState),
+  on(AuthActions.loadAuthFailure, () => initialAuthState),
 );
 
 export const authFeature = createFeature({

@@ -105,9 +105,18 @@ describe('AuthService', () => {
       });
     });
 
-    it('should throw error if no auth token found', () => {
+    it('should throw error if no auth token found', (done) => {
       spyOn(service, 'getAuthToken').and.returnValue(null);
-      expect(() => service.getProfile()).toThrowError('No auth token found');
+      service.getProfile().subscribe({
+        next: () => {
+          done.fail('expected an error');
+        },
+        error: (error) => {
+          expect(error).toBeInstanceOf(Error);
+          expect(error.message).toBe('No auth token found');
+          done();
+        },
+      });
     });
   });
 });

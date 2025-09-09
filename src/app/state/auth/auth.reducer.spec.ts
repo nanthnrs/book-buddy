@@ -12,10 +12,10 @@ describe('Auth Reducer', () => {
     });
   });
 
-  describe('setAuth action', () => {
+  describe('loadAuthSuccess action', () => {
     it('should return the previous state', () => {
       const user = { name: 'user', email: 'user@email.com' };
-      const action = AuthActions.setAuth(user);
+      const action = AuthActions.loadAuthSuccess(user);
       const result = authReducer(initialAuthState, action);
       expect(result).toEqual({
         user: user,
@@ -24,9 +24,9 @@ describe('Auth Reducer', () => {
     });
   });
 
-  describe('clearAuth action', () => {
+  describe('loadAuthFailure action', () => {
     it('should clear auth state', () => {
-      const action = AuthActions.clearAuth();
+      const action = AuthActions.loadAuthFailure();
       const prevState = {
         user: { name: 'user', email: 'user@email.com' },
         authenticated: true,
