@@ -80,4 +80,17 @@ describe('AuthEffects', () => {
       });
     });
   });
+
+  it('should sign out and navigate to sign-in page when signOut action is dispatched', (done) => {
+    spyOn(authService, 'signOut');
+    spyOn(router, 'navigateByUrl');
+
+    actions$ = of(AuthActions.signOut());
+
+    effects.signOut$.subscribe(() => {
+      expect(authService.signOut).toHaveBeenCalled();
+      expect(router.navigateByUrl).toHaveBeenCalledWith('/sign-in');
+      done();
+    });
+  });
 });

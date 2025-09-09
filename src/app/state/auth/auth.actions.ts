@@ -6,5 +6,6 @@ export const AuthActions = createActionGroup({
     'Load Auth': emptyProps(),
     'Load Auth Success': props<{ name: string; email: string }>(),
     'Load Auth Failure': emptyProps(),
+    'Sign Out': emptyProps(),
   },
 });

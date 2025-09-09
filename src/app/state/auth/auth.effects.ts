@@ -37,4 +37,17 @@ export class AuthEffects {
     },
     { dispatch: false },
   );
+
+  signOut$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(AuthActions.signOut),
+        map(() => {
+          this.authService.signOut();
+          this.router.navigateByUrl('/sign-in');
+        }),
+      );
+    },
+    { dispatch: false },
+  );
 }

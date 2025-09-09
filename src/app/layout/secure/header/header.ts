@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../../../services/auth/auth.service';
+import { RouterLink } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { AuthActions } from '../../../state/auth/auth.actions';
 
 @Component({
   selector: 'app-header',
@@ -9,11 +10,9 @@ import { AuthService } from '../../../services/auth/auth.service';
   styleUrl: './header.css',
 })
 export class Header {
-  private authService = inject(AuthService);
-  private router = inject(Router);
+  private store = inject(Store)
 
   signOut() {
-    this.authService.signOut();
-    this.router.navigateByUrl('/sign-in');
+    this.store.dispatch(AuthActions.signOut())
   }
 }

@@ -1,30 +1,26 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Header } from './header';
-import { provideRouter, Router } from '@angular/router';
-import { AuthService } from '../../../services/auth/auth.service';
-import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideRouter } from '@angular/router';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { AuthActions } from '../../../state/auth/auth.actions';
 
 describe('Header', () => {
   let component: Header;
   let fixture: ComponentFixture<Header>;
   let nativeElement: HTMLElement;
-  let authService: AuthService;
-  let router: Router;
+  let store: MockStore;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [Header],
       providers: [
         provideRouter([]),
-        provideHttpClient(),
-        provideHttpClientTesting(),
+        provideMockStore({}),
       ],
     }).compileComponents();
 
-    authService = TestBed.inject(AuthService);
-    router = TestBed.inject(Router);
+    store = TestBed.inject(MockStore);
 
     fixture = TestBed.createComponent(Header);
     component = fixture.componentInstance;
@@ -45,32 +41,21 @@ describe('Header', () => {
   describe('sign out', () => {
     it('should have sign out button', () => {
       const button = nativeElement.querySelector(
-        '#btn-sign-out'
+        '#btn-sign-out',
       ) as HTMLAnchorElement;
       expect(button).toBeTruthy();
       expect(button?.textContent).toContain('Sign out');
     });
 
-    it('should call authService.signOut when sign out button is clicked', () => {
-      const spy = spyOn(authService, 'signOut').and.callThrough();
+    it('should dispatch signOut action when sign out button is clicked', () => {
+      spyOn(store, 'dispatch');
 
       const button = nativeElement.querySelector(
-        '#btn-sign-out'
+        '#btn-sign-out',
       ) as HTMLAnchorElement;
       button.click();
 
-      expect(spy).toHaveBeenCalled();
-    });
-
-    it('should redirect to /sign-in after sign out', () => {
-      spyOn(router, 'navigateByUrl');
-
-      const button = nativeElement.querySelector(
-        '#btn-sign-out'
-      ) as HTMLAnchorElement;
-      button.click();
-
-      expect(router.navigateByUrl).toHaveBeenCalledOnceWith('/sign-in');
+      expect(store.dispatch).toHaveBeenCalledOnceWith(AuthActions.signOut());
     });
   });
 });

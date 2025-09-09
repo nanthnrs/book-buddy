@@ -30,6 +30,7 @@ export const authReducer = createReducer(
     authenticated: true,
   })),
   on(AuthActions.loadAuthFailure, () => initialAuthState),
+  on(AuthActions.signOut, () => initialAuthState),
 );
 
 export const authFeature = createFeature({

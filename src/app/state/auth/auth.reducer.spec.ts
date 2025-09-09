@@ -35,4 +35,16 @@ describe('Auth Reducer', () => {
       expect(result).toEqual(initialAuthState);
     });
   });
+
+  describe('signOut action', () => {
+    it('should clear auth state', () => {
+      const action = AuthActions.signOut();
+      const prevState = {
+        user: { name: 'user', email: 'user@email.com' },
+        authenticated: true,
+      };
+      const result = authReducer(prevState, action);
+      expect(result).toEqual(initialAuthState);
+    });
+  });
 });
