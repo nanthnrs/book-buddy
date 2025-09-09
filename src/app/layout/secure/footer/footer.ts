@@ -9,5 +9,5 @@ import { menuItems } from '../../../core/constants/menu';
   styleUrl: './footer.css'
 })
 export class Footer {
-  items = menuItems
+  readonly items = menuItems
 }
