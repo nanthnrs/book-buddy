@@ -8,6 +8,8 @@ import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { bookFeature } from './state/book/book.reducer';
 import { BookEffects } from './state/book/book.effects';
+import { authFeature } from './state/auth/auth.reducer';
+import { AuthEffects } from './state/auth/auth.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,8 +18,9 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(),
     provideStore(),
+    provideState(authFeature),
     provideState(bookFeature),
-    provideEffects(BookEffects),
+    provideEffects(AuthEffects, BookEffects),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
 ]
 };
