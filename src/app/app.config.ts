@@ -10,6 +10,7 @@ import { bookFeature } from './state/book/book.reducer';
 import { BookEffects } from './state/book/book.effects';
 import { authFeature } from './state/auth/auth.reducer';
 import { AuthEffects } from './state/auth/auth.effects';
+import { AppEffects } from './state/app/app.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,7 +21,7 @@ export const appConfig: ApplicationConfig = {
     provideStore(),
     provideState(authFeature),
     provideState(bookFeature),
-    provideEffects(AuthEffects, BookEffects),
+    provideEffects(AppEffects, AuthEffects, BookEffects),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
 ]
 };

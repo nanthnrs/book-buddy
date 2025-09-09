@@ -4,7 +4,7 @@ import { Navbar } from './navbar/navbar';
 import { Main } from './main/main';
 import { Footer } from './footer/footer';
 import { Store } from '@ngrx/store';
-import { BookActions } from '../../state/book/book.actions';
+import { AppActions } from '../../state/app/app.actions';
 
 @Component({
   selector: 'app-secure',
@@ -16,6 +16,6 @@ export class Secure implements OnInit {
   private store = inject(Store);
 
   ngOnInit(): void {
-    this.store.dispatch(BookActions.loadBooks());
+    this.store.dispatch(AppActions.loadAppSecure());
   }
 }

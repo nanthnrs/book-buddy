@@ -4,13 +4,9 @@ import { Secure } from './secure';
 import { Store } from '@ngrx/store';
 import { provideRouter } from '@angular/router';
 import { provideMockStore } from '@ngrx/store/testing';
-import {
-  bookFeatureKey,
-  initialBookState,
-} from '../../state/book/book.reducer';
-import { BookActions } from '../../state/book/book.actions';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { AppActions } from '../../state/app/app.actions';
 
 describe('Secure', () => {
   let component: Secure;
@@ -22,11 +18,7 @@ describe('Secure', () => {
       imports: [Secure],
       providers: [
         provideRouter([]),
-        provideMockStore({
-          initialState: {
-            [bookFeatureKey]: initialBookState,
-          },
-        }),
+        provideMockStore({}),
         provideHttpClient(),
         provideHttpClientTesting()
       ],
@@ -52,8 +44,8 @@ describe('Secure', () => {
     expect(compiled.querySelector('app-footer')).toBeTruthy();
   });
 
-  it('should dispatch loadBooks action on init', () => {
+  it('should dispatch loadAppSecure action on init', () => {
     fixture.detectChanges();
-    expect(store.dispatch).toHaveBeenCalledWith(BookActions.loadBooks());
+    expect(store.dispatch).toHaveBeenCalledWith(AppActions.loadAppSecure());
   });
 });
