@@ -3,6 +3,7 @@
 ## Technical information
 
 - **Framework:** [Angular]([https://](https://angular.dev/))
+- **UI Components** [daisyUI]([https://daisyui.com/])
 - **Styling:** [Tailwind CSS]([https://](https://tailwindcss.com/))
 - **State Management:** [NgRx]([https://](https://ngrx.io/docs))
   - [Store]([https://](https://ngrx.io/guide/store))
