@@ -1,16 +1,17 @@
-<div class="md:hidden dock border-t border-t-gray-200">
+<div id="footer" class="md:hidden dock border-t border-t-gray-200">
   @for (item of items; track $index) {
-  <a
-    [routerLink]="item.path"
-    routerLinkActive="dock-active"
-    #rla="routerLinkActive"
-  >
-    @if (rla.isActive) {
-    <i [class]="item.activeIcon"></i>
-    } @else {
-    <i [class]="item.icon"></i>
-    }
-    <span class="dock-label">{{ item.label }}</span>
-  </a>
+    <a
+      [id]="item.id"
+      [routerLink]="item.path"
+      routerLinkActive="dock-active"
+      #rla="routerLinkActive"
+    >
+      @if (rla.isActive) {
+        <i [class]="item.activeIcon"></i>
+      } @else {
+        <i [class]="item.icon"></i>
+      }
+      <span class="dock-label">{{ item.label }}</span>
+    </a>
   }
 </div>

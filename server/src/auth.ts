@@ -5,7 +5,12 @@ const authRoutes = new Hono();
 const store = new Map<
   string,
   { name: string; email: string; password: string }
->();
+>([
+  [
+    'user@email.com',
+    { name: 'User', email: 'user@email.com', password: 'password' },
+  ],
+]);
 
 authRoutes.post('/sign-up', async (c) => {
   const { name, email, password } = await c.req.json<{

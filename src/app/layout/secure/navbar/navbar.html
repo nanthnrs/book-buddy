@@ -1,23 +1,25 @@
 <nav
+  id="navbar"
   class="fixed top-(--header-height) hidden md:block md:w-(--sidebar-width) h-full border-r border-r-gray-200"
 >
   <ul class="menu rounded-box w-full gap-y-1">
     @for (item of items; track $index) {
-    <li>
-      <a
-        [routerLink]="item.path"
-        routerLinkActive="menu-active"
-        #rla="routerLinkActive"
-        class="p-3 font-medium"
-      >
-        @if (rla.isActive) {
-        <i [class]="item.activeIcon"></i>
-        } @else {
-        <i [class]="item.icon"></i>
-        }
-        {{ item.label }}
-      </a>
-    </li>
+      <li>
+        <a
+          [id]="item.id"
+          [routerLink]="item.path"
+          routerLinkActive="menu-active"
+          #rla="routerLinkActive"
+          class="p-3 font-medium"
+        >
+          @if (rla.isActive) {
+            <i [class]="item.activeIcon"></i>
+          } @else {
+            <i [class]="item.icon"></i>
+          }
+          {{ item.label }}
+        </a>
+      </li>
     }
   </ul>
 </nav>

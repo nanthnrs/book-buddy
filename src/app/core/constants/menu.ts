@@ -1,17 +1,13 @@
 export const menuItems = [
   {
-    path: '/home',
-    label: 'Home',
-    icon: 'bi bi-house',
-    activeIcon: 'bi bi-house-fill',
-  },
-  {
+    id: 'book-list-menu',
     path: '/books',
     label: 'Books',
     icon: 'bi bi-book',
     activeIcon: 'bi bi-book-fill',
   },
   {
+    id: 'favorites-menu',
     path: '/favorites',
     label: 'Favorites',
     icon: 'bi bi-heart',
