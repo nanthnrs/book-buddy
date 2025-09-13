@@ -77,3 +77,16 @@ Generate code coverage report
 ```bash
 npm run test -- --code-coverage
 ```
+
+## Running e2e tests
+
+Before running e2e testing you have to run frontend and backend
+
+- [Running Frontend](#frontend)
+- [Running Backend](#backend-auth-api)
+
+To run e2e testing
+
+```bash
+npm run e2e
+```
