@@ -4,7 +4,11 @@ describe('Authentication', () => {
   const password = 'password';
 
   it('sign up', () => {
-    cy.visit('http://localhost:4200/sign-up');
+    cy.intercept('POST', 'http://localhost:3000/auth/sign-up', {
+      data: { email },
+    });
+
+    cy.visit('/sign-up');
 
     cy.get('#name').type(name);
     cy.get('#email').type(email);
@@ -15,7 +19,14 @@ describe('Authentication', () => {
   });
 
   it('sign in and sign out', () => {
-    cy.visit('http://localhost:4200/sign-in');
+    cy.intercept('POST', 'http://localhost:3000/auth/sign-in', {
+      data: { email },
+    }).as('signIn');
+    cy.intercept('GET', 'http://localhost:3000/auth/profile', {
+      data: { name, email },
+    }).as('getProfile');
+
+    cy.visit('/sign-in');
 
     cy.get('#email').type(email);
     cy.get('#password').type(password);
